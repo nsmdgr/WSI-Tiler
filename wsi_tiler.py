@@ -83,10 +83,10 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Split Whole-Slide-Images into a set of smaller tiles.')
     
-    parser.add_argument('--wsi_dir',        help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path, default=pathlib.Path('/home/niklas/Internal_HDD/project_data/histopathology/CPTAC-CCRCC-50/'))
-    parser.add_argument('--out_dir',        help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path, default=pathlib.Path('/home/niklas/projects/jku_work/contrastive_learning/preprocessing/tiler_outputs'))
-    parser.add_argument('--tile_size',      help='Specifies height and width of the resulting square tiles.',  type=int,          default=512)
-    parser.add_argument('--tissue_percent', help='Reject tiles containing less then `tissue_percent` tissue.', type=float,        default=80.)
+    parser.add_argument('--wsi_dir',        help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path)
+    parser.add_argument('--out_dir',        help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path)
+    parser.add_argument('--tile_size',      help='Specifies height and width of the resulting square tiles.',  type=int,   default=512)
+    parser.add_argument('--tissue_percent', help='Reject tiles containing less then `tissue_percent` tissue.', type=float, default=80.)
     
     args = parser.parse_args()
 
