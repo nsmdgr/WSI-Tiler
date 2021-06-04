@@ -56,3 +56,7 @@ The `tiler_thumbnails` directory contains a thumbnail for each WSI with extracte
 `slide_status.csv` is saved in the `out_dir` directory and indicates whether the tiling succeeded or failed for a given WSI. This can be handy when working with a large set of images.
 
 Finally, all ray logs are saved by default in the temporary directory `/tmp/wsi_tiler_ray_logs`.
+
+## References
+
+- https://github.com/histolab/histolab
