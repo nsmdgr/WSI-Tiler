@@ -46,34 +46,6 @@ def tile_wsi(wsi_path, tiles_dir, tile_size=512, tissue_percent=80., thumbnail_d
     Tuple containing WSI_ID, WSI_URI and String indicating success or failure (used for final status reports).
     """
     
-    slide = Slide(wsi_path, tiles_dir)
-        
-    tiler = ScoreTiler(
-        scorer = NucleiScorer(),
-        tile_size=(tile_size, tile_size),
-        n_tiles = 0, # all tiles
-        level=0,     # highest resolution
-        check_tissue=True,
-        tissue_percent=tissue_percent,
-        pixel_overlap=0, 
-        prefix=f"{slide.name}_",
-        suffix=".jpg"
-    )
-    
-    tissue_mask = TissueMask()
-    
-    tiler.extract(
-        slide, 
-        tissue_mask, 
-        report_path=score_report_dir/f'{slide.name}_score_report.csv', 
-        thumbnail_path=thumbnail_dir/f'{slide.name}_thumbnail.png'
-    )
-    
-    return (wsi_path.stem, wsi_path, 'success')
-
-
-
-    """
     try:
         
         slide = Slide(wsi_path, tiles_dir)
@@ -104,8 +76,6 @@ def tile_wsi(wsi_path, tiles_dir, tile_size=512, tissue_percent=80., thumbnail_d
     except:
         
         return (wsi_path.stem, wsi_path, 'fail')
-    """
-
 
 if __name__ == '__main__':
     
@@ -113,8 +83,8 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Split Whole-Slide-Images into a set of smaller tiles.')
     
-    parser.add_argument('--wsi_dir',          help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path, default="/home/niklas/Internal_HDD/project_data/histopathology/CPTAC-CCRCC-50")
-    parser.add_argument('--out_dir',          help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path, default="/home/niklas/Internal_HDD/project_data/histopathology/CPTAC-CCRCC-50/outputs")
+    parser.add_argument('--wsi_dir',          help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path)
+    parser.add_argument('--out_dir',          help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path)
     parser.add_argument('--tile_size',      help='Specifies height and width of the resulting square tiles.',  type=int,   default=512)
     parser.add_argument('--tissue_percent', help='Reject tiles containing less then `tissue_percent` tissue.', type=float, default=80.)
     
@@ -138,7 +108,7 @@ if __name__ == '__main__':
         sys.exit('No WSIs found in `wsi_dir`. Exiting...')
 
     # start parallel tiling
-    ray.init(log_to_driver=False,  include_dashboard=False, _temp_dir='/tmp/wsi_tiler_ray_logs', local_mode=True)
+    ray.init(log_to_driver=False, include_dashboard=False, _temp_dir='/tmp/wsi_tiler_ray_logs')
 
     results = []
     for wsi_path in wsi_paths[:2]:
