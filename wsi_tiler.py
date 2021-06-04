@@ -111,7 +111,7 @@ if __name__ == '__main__':
     ray.init(log_to_driver=False, include_dashboard=False, _temp_dir='/tmp/wsi_tiler_ray_logs')
 
     results = []
-    for wsi_path in wsi_paths[:2]:
+    for wsi_path in wsi_paths:
         results.append(
             tile_wsi.remote(
                 wsi_path=wsi_path, 
