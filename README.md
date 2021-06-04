@@ -51,6 +51,8 @@ The `score_reports` directory contains one .csv file for each WSI. For a given W
 
 The `tiler_thumbnails` directory contains a thumbnail for each WSI with extracted tiles as bounding boxes:
 
+<img src="./images/tiler_thumbnail.png" width="450" height="400">
 
+`slide_status.csv` is saved in the `out_dir` directory and indicates whether the tiling succeeded or failed for a given WSI. This can be handy when working with a large set of images.
 
-
+Finally, all ray logs are saved by default in the temporary directory `/tmp/wsi_tiler_ray_logs`.
