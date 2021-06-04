@@ -11,6 +11,7 @@ import pandas as pd
 import argparse
 from tqdm import tqdm
 import time
+import sys
 
 # helper used for progress bar logging
 def to_iterator(obj_ids):
@@ -83,12 +84,15 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Split Whole-Slide-Images into a set of smaller tiles.')
     
-    parser.add_argument('--wsi_dir',        help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path)
-    parser.add_argument('--out_dir',        help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path)
+    parser.add_argument('wsi_dir',          help='(Possibly nested) directory containing input WSIs.',         type=pathlib.Path)
+    parser.add_argument('out_dir',          help='Directory for tiles, reports, thumbnails, ray logs.',        type=pathlib.Path)
     parser.add_argument('--tile_size',      help='Specifies height and width of the resulting square tiles.',  type=int,   default=512)
     parser.add_argument('--tissue_percent', help='Reject tiles containing less then `tissue_percent` tissue.', type=float, default=80.)
     
     args = parser.parse_args()
+
+    if not args.wsi_dir or not args.out_dir:
+        sys.exit('No WSIs found in `wsi_dir`. Exiting...')      
 
     # create output directories
     tiles_dir        = args.out_dir/'tiles'
@@ -100,7 +104,9 @@ if __name__ == '__main__':
             directory.mkdir(parents=True)
 
     # get paths to all input WSIs
-    wsi_paths = list(args.wsi_dir.rglob('*.svs')) 
+    wsi_paths = list(args.wsi_dir.rglob('*.svs'))
+    if not wsi_paths:
+        sys.exit('No WSIs found in `wsi_dir`. Exiting...')
 
     # start parallel tiling
     ray.init(log_to_driver=False,  include_dashboard=False, _temp_dir='/tmp/histo_tiler_ray_logs')
