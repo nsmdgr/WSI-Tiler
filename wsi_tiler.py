@@ -68,7 +68,7 @@ def tile_wsi(wsi_path, tiles_dir, tile_size=512, tissue_percent=80., thumbnail_d
             slide, 
             tissue_mask, 
             report_path=score_report_dir/f'{slide.name}_score_report.csv', 
-            thumbnail_path=thumbnail_dir/f'{slide.name}_thumbnail.png'
+            thumbnail_path=thumbnail_dir/f'{slide.name}_thumbnail.jpg'
         )
         
         return (wsi_path.stem, wsi_path, 'success')
