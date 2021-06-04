@@ -6,7 +6,7 @@ Very simple, parallel Whole-Slide-Imaging Tiler for Digital Histopathology built
 
 ```
 conda create -n wsi_env python=3.8
-conda activate wsi
+conda activate wsi_env
 pip install -r requirements.txt
 ```
 
