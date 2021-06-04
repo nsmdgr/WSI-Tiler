@@ -109,10 +109,10 @@ if __name__ == '__main__':
         sys.exit('No WSIs found in `wsi_dir`. Exiting...')
 
     # start parallel tiling
-    ray.init(log_to_driver=False,  include_dashboard=False, _temp_dir='/tmp/histo_tiler_ray_logs')
+    ray.init(log_to_driver=False,  include_dashboard=False, _temp_dir='/tmp/wsi_tiler_ray_logs')
 
     results = []
-    for wsi_path in wsi_paths[:20]: #TODO remove [:5]
+    for wsi_path in wsi_paths:
         results.append(
             tile_wsi.remote(
                 wsi_path=wsi_path, 
