@@ -38,7 +38,7 @@ optional arguments:
 
 The tiler creates three separate directories `tiles`, `score_reports`, `tiler_thumbnails` in the user-specified `out_dir` directory.
 
-The `tiles` directory contains all generated tiles from all WSIs found in `wsi_dir`. Tiles are saved with the pattern `{slide.name}_tile_{tiles_counter}_level{level}_{x_ul_wsi}-{y_ul_wsi}-{x_br_wsi}-{y_br_wsi}.png` where `x_ul_wsi, y_ul_wsi, x_br_wsi, y_br_wsi` describe the top-left and bottom-right pixel coordinates of the tile in the WSI.
+The `tiles` directory contains all generated tiles from all WSIs found in `wsi_dir`. Tiles are saved with the pattern `{slide.name}_tile_{tiles_counter}_level{level}_{x_ul_wsi}-{y_ul_wsi}-{x_br_wsi}-{y_br_wsi}.jpg` where `x_ul_wsi, y_ul_wsi, x_br_wsi, y_br_wsi` describe the top-left and bottom-right pixel coordinates of the tile in the WSI.
 
 The `score_reports` directory contains one .csv file for each WSI. For a given WSI, the table contains URIs to the resulting tiles associated with a combined Nuclei-Tissue-Detection score. This score can be useful for sampling images during training.
 
